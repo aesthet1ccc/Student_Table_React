@@ -1,4 +1,11 @@
-function Search({ setSearchValue, searchValue }) {
+import React from "react";
+
+type SearchProps = {
+  setSearchValue: (obj: string) => void;
+  searchValue: string;
+};
+
+const Search: React.FC<SearchProps> = ({ setSearchValue, searchValue }) => {
   return (
     <div className="search_block">
       <img className="searchIcon" src="/img/search.svg" alt="search" />
@@ -17,5 +24,5 @@ function Search({ setSearchValue, searchValue }) {
       )}
     </div>
   );
-}
+};
 export default Search;

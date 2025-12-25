@@ -1,4 +1,6 @@
-function Header() {
+import React from "react";
+
+const Header: React.FC = () => {
   return (
     <header className="header">
       <img width={48} height={56} src="/img/logo.svg" alt="logo" />
@@ -7,5 +9,5 @@ function Header() {
       </h2>
     </header>
   );
-}
+};
 export default Header;

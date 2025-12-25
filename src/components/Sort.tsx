@@ -1,17 +1,27 @@
 import React from "react";
+import { SortObj } from "../App";
 
-function Sort() {
+type SortProps = {
+  sortType: SortObj;
+  onChangeSort: (i: SortObj) => void;
+};
+
+const Sort: React.FC<SortProps> = ({ sortType, onChangeSort }) => {
   const [openPopup, setOpenPopup] = React.useState(false);
-  const [selected, setSelected] = React.useState(0);
 
-  const itemsPopup = ["Имя А-Я", "Имя Я-А", "Сначала моложе", "Сначала старше"];
+  const itemsPopup = [
+    { name: "Имя А-Я", sortProperty: "firstname" },
+    { name: "Имя Я-А", sortProperty: "-firstname" },
+    { name: "Сначала моложе", sortProperty: "age" },
+    { name: "Сначала старше", sortProperty: "-age" },
+  ];
 
   const onClickOpen = () => {
     setOpenPopup(!openPopup);
   };
 
-  const onCLickActivePopup = (i) => {
-    setSelected(i);
+  const onCLickActivePopup = (i: SortObj) => {
+    onChangeSort(i);
     setOpenPopup(false);
   };
 
@@ -23,7 +33,7 @@ function Sort() {
             onClickOpen();
           }}
         >
-          {itemsPopup[selected]}
+          {sortType.name}
         </span>
         <img
           onClick={() => {
@@ -37,15 +47,15 @@ function Sort() {
       {openPopup && (
         <div className="sort__popup">
           <ul>
-            {itemsPopup.map((sortType, i) => {
-              const isSelected = selected === i;
+            {itemsPopup.map((obj, i) => {
+              const isSelected = sortType.sortProperty === obj.sortProperty;
               return (
                 <li
                   key={i}
                   className={isSelected ? "active" : ""}
-                  onClick={() => onCLickActivePopup(i)}
+                  onClick={() => onCLickActivePopup(obj)}
                 >
-                  {sortType}
+                  {obj.name}
                   {isSelected && (
                     <img src="./img/selected_sort.svg" height={18} width={18} />
                   )}
@@ -57,5 +67,5 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 export default Sort;
